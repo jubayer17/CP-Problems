@@ -1,0 +1,24 @@
+# Ignore folders
+.vscode/
+.cph/
+
+# Ignore compiled files
+*.exe
+*.out
+*.obj
+*.o
+
+# Ignore HTML files
+*.html
+
+# Ignore backups and logs
+*.log
+*.tmp
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore editor swap files
+*.swp
+*.swo
