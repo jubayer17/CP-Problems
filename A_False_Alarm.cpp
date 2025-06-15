@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-06-02 18:05:16
+// 2025-06-08 20:37:28
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,53 +33,53 @@ void read(vector<T> &v, int n)
     for (auto &x : v)
         cin >> x;
 }
-
 template <typename T>
-void print_pair(const pair<T, T> &p)
-{
-    cout << p.first << ' ' << p.second << nl;
-}
+void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl; }
 
-int bs(const vector<int> &arr, int target)
+void solve()
 {
-    int left = 0, right = arr.size() - 1;
-    while (left <= right)
+    int n, k;
+    cin >> n >> k;
+    vector<int> vt(n);
+    for (int i = 0; i < n; i++)
     {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] > target)
+        cin >> vt[i];
+    }
+
+    int flag = 0, cnt = 0, now = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (now == 1 && vt[i] == 1)
         {
-            right = mid - 1;
+            cout << "NO" << nl;
+            return;
         }
-        else if (arr[mid] < target)
+        if (vt[i] == 1)
         {
-            left = mid + 1;
+            flag = 1;
         }
-        else
+        if (flag == 1)
         {
-            return mid;
+            cnt++;
+        }
+        if (cnt == k)
+        {
+            now = 1;
         }
     }
-    return -1;
+
+    cout << "YES" << nl;
 }
 
 signed main()
 {
     fast_io;
-    int n, k;
-    cin >> n >> k;
-    vector<int> vt(n);
-    for (int i = 0; i < n; i++)
-        cin >> vt[i];
-    sort(all(vt));
-    while (k--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int x;
-        cin >> x;
-        int ans = bs(vt, x);
-        if (ans == -1)
-            cout << "NO" << nl;
-        else
-            cout << "YES" << nl;
+        solve();
     }
     return 0;
 }

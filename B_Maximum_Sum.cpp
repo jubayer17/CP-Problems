@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-06-02 18:05:16
+// 2025-06-14 22:12:45
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,53 +33,54 @@ void read(vector<T> &v, int n)
     for (auto &x : v)
         cin >> x;
 }
-
 template <typename T>
-void print_pair(const pair<T, T> &p)
-{
-    cout << p.first << ' ' << p.second << nl;
-}
+void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl; }
 
-int bs(const vector<int> &arr, int target)
+void solve()
 {
-    int left = 0, right = arr.size() - 1;
-    while (left <= right)
+    int n, k;
+    cin >> n >> k;
+    vector<int> vt(n);
+    for (int i = 0; i < n; i++)
     {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] > target)
-        {
-            right = mid - 1;
-        }
-        else if (arr[mid] < target)
-        {
-            left = mid + 1;
-        }
-        else
-        {
-            return mid;
-        }
+        cin >> vt[i];
     }
-    return -1;
+    sort(vt.begin(), vt.end());
+
+    vector<int> pref(n);
+    pref[0] = vt[0];
+    for (int i = 1; i < n; i++)
+    {
+        pref[i] = vt[i] + pref[i - 1];
+    }
+
+    int finalans = INT64_MIN;
+
+    for (int first = 0; first <= k; first++)
+    {
+        int last = k - first;
+
+        int left = first * 2;
+        int right = n - last - 1;
+
+        if (left >= n || right < 0)
+            continue;
+
+        int ans = pref[right] - (left == 0 ? 0 : pref[left - 1]);
+        finalans = max(ans, finalans);
+    }
+
+    cout << finalans << nl;
 }
 
 signed main()
 {
     fast_io;
-    int n, k;
-    cin >> n >> k;
-    vector<int> vt(n);
-    for (int i = 0; i < n; i++)
-        cin >> vt[i];
-    sort(all(vt));
-    while (k--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int x;
-        cin >> x;
-        int ans = bs(vt, x);
-        if (ans == -1)
-            cout << "NO" << nl;
-        else
-            cout << "YES" << nl;
+        solve();
     }
     return 0;
 }

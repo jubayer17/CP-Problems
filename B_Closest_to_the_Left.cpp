@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-06-02 18:05:16
+// 2025-06-03 23:20:29
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,33 +33,25 @@ void read(vector<T> &v, int n)
     for (auto &x : v)
         cin >> x;
 }
-
 template <typename T>
-void print_pair(const pair<T, T> &p)
-{
-    cout << p.first << ' ' << p.second << nl;
-}
-
+void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl; }
 int bs(const vector<int> &arr, int target)
 {
-    int left = 0, right = arr.size() - 1;
-    while (left <= right)
+    int low = 0, high = arr.size() - 1, mx = -1;
+    while (low <= high)
     {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] > target)
+        int mid = low + (high - low) / 2;
+        if (arr[mid] <= target)
         {
-            right = mid - 1;
-        }
-        else if (arr[mid] < target)
-        {
-            left = mid + 1;
+            mx = mid;
+            low = mid + 1;
         }
         else
         {
-            return mid;
+            high = mid - 1;
         }
     }
-    return -1;
+    return mx;
 }
 
 signed main()
@@ -70,16 +62,13 @@ signed main()
     vector<int> vt(n);
     for (int i = 0; i < n; i++)
         cin >> vt[i];
-    sort(all(vt));
+
     while (k--)
     {
         int x;
         cin >> x;
         int ans = bs(vt, x);
-        if (ans == -1)
-            cout << "NO" << nl;
-        else
-            cout << "YES" << nl;
+        cout << (ans == -1 ? 0 : ans + 1) << nl;
     }
     return 0;
 }
