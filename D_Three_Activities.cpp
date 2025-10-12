@@ -1,0 +1,96 @@
+// Author: Jubayer Ahmed
+// 2025-09-05 01:08:27
+
+#include <bits/stdc++.h>
+using namespace std;
+
+#define fast_io                       \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL);
+#define int long long
+#define MOD 1000000007
+#define INF 1e18
+#define nl '\n'
+#define pb push_back
+#define ff first
+#define ss second
+#define all(v) (v).begin(), (v).end()
+#define rall(v) (v).rbegin(), (v).rend()
+#define rep(i, a, b) for (int i = a; i < b; i++)
+#define rrep(i, a, b) for (int i = a; i >= b; i--)
+#define yes cout << "YES" << nl;
+#define no cout << "NO" << nl;
+#define print(v)          \
+    for (auto x : v)      \
+        cout << x << ' '; \
+    cout << nl;
+#define debug(x) cerr << #x << " = " << x << nl;
+
+template <typename T>
+void read(vector<T> &v, int n)
+{
+    v.resize(n);
+    for (auto &x : v)
+        cin >> x;
+}
+template <typename T>
+void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl; }
+vector<pair<int, int>> get3(const vector<int> &arr)
+{
+    vector<pair<int, int>> v;
+    for (int i = 0; i < arr.size(); i++)
+    {
+        v.push_back({arr[i], i});
+    }
+    sort(v.rbegin(), v.rend());
+    if (v.size() > 3)
+    {
+        v.resize(3);
+    }
+    return v;
+}
+void solve()
+{
+    // lesgoooo
+    int n;
+    cin >> n;
+    vector<int> a(n), b(n), c(n);
+    for (int &x : a)
+        cin >> x;
+    for (int &x : b)
+        cin >> x;
+    for (int &x : c)
+        cin >> x;
+
+    vector<pair<int, int>> A = get3(a);
+    vector<pair<int, int>> B = get3(b);
+    vector<pair<int, int>> C = get3(c);
+
+    long long ans = 0;
+    for (auto [va, ia] : A)
+    {
+        for (auto [vb, ib] : B)
+        {
+            for (auto [vc, ic] : C)
+            {
+                if (ia != ib && ia != ic && ib != ic)
+                {
+                    ans = max(ans, va + vb + vc);
+                }
+            }
+        }
+    }
+    cout << ans << nl;
+}
+
+signed main()
+{
+    fast_io;
+    int t = 1;
+    cin >> t;
+    while (t--)
+    {
+        solve();
+    }
+    return 0;
+}
