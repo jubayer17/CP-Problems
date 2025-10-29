@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-10-24 00:24:18
+// 2025-10-22 21:22:47
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -41,50 +41,53 @@ void solve()
     // lesgoooo
     int n;
     cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    vector<int> vt(n);
+    for (int i = 0; i < n; i++)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        cin >> vt[i];
+    }
+    int mx = 0, cmpmax = 0;
+    for (int i = 1; i < n; i += 2)
+    {
+        cmpmax = max(vt[i], vt[i - 1]);
+        mx = max(mx, cmpmax);
+        vt[i] = mx;
+    }
+    int sum = 0;
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (i % 2 == 0)
+        {
+            // odd
+            if (vt[i] >= vt[i + 1])
+            {
+
+                sum += abs(vt[i] - vt[i + 1]) + 1;
+                vt[i] = vt[i + 1] - 1;
+            }
+        }
+        else if (i % 2 == 1)
+        {
+            // even
+            if (vt[i + 1] >= vt[i])
+            {
+                sum += abs(vt[i] - vt[i + 1]) + 1;
+                vt[i + 1] = vt[i] - 1;
+            }
+        }
     }
 
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
+    cout << sum << nl;
 }
 
 signed main()
 {
     fast_io;
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        solve();
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
     return 0;
 }

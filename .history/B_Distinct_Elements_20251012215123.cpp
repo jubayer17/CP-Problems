@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-10-24 00:24:18
+// 2025-10-12 21:51:13
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -41,23 +41,18 @@ void solve()
     // lesgoooo
     int n;
     cin >> n;
+    vector<int> b(n);
+    for (auto &x : b)
+        cin >> x;
+
     vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    a.push_back(b[0]);
+    for (int i = 1; i < n; i++)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
-    }
+        a.push_back(b[i] - b[i - 1]);
+        }
 
-    for (auto &x : answers)
+    for (auto &x : a)
         cout << x << " ";
     cout << nl;
 }
@@ -65,26 +60,11 @@ void solve()
 signed main()
 {
     fast_io;
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        solve();
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
     return 0;
 }

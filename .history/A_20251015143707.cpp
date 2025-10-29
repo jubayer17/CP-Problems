@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-10-24 00:24:18
+// 2025-10-15 14:23:49
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,52 +39,60 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 void solve()
 {
     // lesgoooo
+
     int n;
     cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    vector<int> a(n), b(n);
+    for (int i = 0; i < n; i++)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        cin >> a[i];
+    }
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i];
+        if (b[i] < a[i])
+        {
+            cout << "NO" << nl;
+            return;
+        }
     }
 
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
+    vector<pair<int, int>> ans;
+
+    for (int i = 0; i < n; i++)
+    {
+
+        if (b[i] > a[i])
+        {
+            for (int j = 0; j < n; j++)
+            {
+
+                if (b[i] == a[j])
+                {
+                    ans.push_back({i, j});
+                }
+            }
+        }
+    }
+
+    if (ans.size() == 0)
+    {
+    }
+
+    for (auto &c : ans)
+    {
+        cout << c.first << " " << c.second << nl;
+    }
 }
 
 signed main()
 {
     fast_io;
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        solve();
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
     return 0;
 }

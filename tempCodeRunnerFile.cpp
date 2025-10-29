@@ -1,2 +1,1 @@
-
-        st.insert(x)
+  // sort(ans.begin(), ans.end());

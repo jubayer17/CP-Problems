@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-10-24 00:24:18
+// 2025-10-12 20:46:49
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -41,50 +41,32 @@ void solve()
     // lesgoooo
     int n;
     cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
+    vector<int> a(n);
+    for (auto &x : a)
+        cin >> x;
 
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    vector<int> freq(101, 0);
+    for (auto x : a)
+        freq[x]++;
+
+    for (int i = 0; i <= 101; i++)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        if (freq[i] < 2)
+        {
+            cout << i << nl;
+            return;
+        }
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
 }
 
 signed main()
 {
     fast_io;
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        solve();
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
     return 0;
 }

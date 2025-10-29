@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-10-24 00:24:18
+// 2025-10-24 00:02:38
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,52 +39,68 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 void solve()
 {
     // lesgoooo
+
     int n;
     cin >> n;
-    vector<int> a;
+    vector<int> a(n);
     read(a, n);
-    sort(all(a));
-
+    sort(a.begin(), a.end());
     int q;
     cin >> q;
-    vector<int> answers;
+    int l, r;
+    vector<int> final;
     while (q--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
-    }
+        int low, high, ans = 0;
 
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
+        cin >> l >> r;
+        for (int i = 0; i < n; i++)
+        {
+            if (a[i] == l)
+            {
+                low = i;
+                break;
+            }
+        }
+
+        for (int i = n - 1; i >= 0; i--)
+        {
+            if (a[i] == r)
+            {
+                high = i;
+                break;
+            }
+        }
+
+        while (low <= high)
+        {
+            int mid = low + (high - low) / 2;
+            int num = a[mid];
+
+            int cnt = count(a.begin(), a.end(), num);
+            if (cnt > 0)
+            {
+                low = mid + 1;
+                ans++;
+            }
+            else
+            {
+                high = mid - 1;
+            }
+        }
+        final.push_back(ans);
+        ans = 0;
+    }
 }
 
 signed main()
 {
     fast_io;
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        solve();
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
     return 0;
 }

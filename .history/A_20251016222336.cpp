@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-10-24 00:24:18
+// 2025-10-16 22:20:49
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,52 +39,39 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 void solve()
 {
     // lesgoooo
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
 
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int n, value;
+    cin >> n >> value;
+    vector<int> vt(n);
+    for (int i = 0; i < n; i++)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        cin >> vt[i];
     }
 
-    for (auto &x : answers)
-        cout << x << " ";
+    vector<int> ans;
+    for (int i = 0; i < n; i++)
+    {
+        int x = abs(vt[i]);
+        int y = x % value;
+        ans.push_back(y);
+    }
+
+    sort(ans.begin(), ans.end());
+    for (auto &c : ans)
+    {
+        cout << c << " ";
+    }
     cout << nl;
 }
 
 signed main()
 {
     fast_io;
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        solve();
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
     return 0;
 }

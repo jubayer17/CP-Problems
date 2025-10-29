@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-10-24 00:24:18
+// 2025-10-23 22:50:02
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,52 +39,45 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 void solve()
 {
     // lesgoooo
+
     int n;
     cin >> n;
-    vector<int> a;
+    vector<int> a(n);
+    vector<int> pref(n);
     read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    pref[0] = a[0];
+    for (int i = 1; i < n; i++)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        pref[i] = a[i] + pref[i - 1];
+    }
+    int ans = 0;
+    for (int k = 1; k <= n; k++)
+    {
+        if (n % k)
+            continue;
+        int start = k - 1;
+        int mxi = pref[start];
+        int mni = pref[start];
+        for (int idx = start + k - 1; idx < n; idx++)
+        {
+            int res = pref[idx] - pref[idx - k];
+            mxi = max(mxi, res);
+            mni = min(mni, res);
+        }
+        ans = max(ans, mxi - mni);
     }
 
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
+    cout << ans << nl;
 }
 
 signed main()
 {
     fast_io;
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        solve();
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
     return 0;
 }

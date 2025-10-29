@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-10-24 00:24:18
+// 2025-10-19 00:34:08
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,52 +39,30 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 void solve()
 {
     // lesgoooo
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
 
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int N;
+    cin >> N;
+    vector<int> A;
+    read(A, N);
+
+    int maxDiff = 0;
+    rep(i, 0, N - 1)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        maxDiff = max(maxDiff, abs(A[i] - A[i + 1]));
     }
 
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
+    int case_num = 1;
+    cout << "Case #" << case_num++ << ": " << maxDiff << nl;
 }
 
 signed main()
 {
     fast_io;
-    int n;
-    cin >> n;
-    vector<int> a;
-    read(a, n);
-    sort(all(a));
-
-    int q;
-    cin >> q;
-    vector<int> answers;
-    while (q--)
+    int t = 1;
+    cin >> t;
+    while (t--)
     {
-        int l, r;
-        cin >> l >> r;
-        int left = lower_bound(all(a), l) - a.begin();
-        int right = upper_bound(all(a), r) - a.begin();
-        answers.pb(right - left);
+        solve();
     }
-
-    for (auto &x : answers)
-        cout << x << " ";
-    cout << nl;
     return 0;
 }
