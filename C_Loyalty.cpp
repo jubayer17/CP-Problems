@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-13 13:07:21
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,46 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    read(a, n);
-
-    for (int i = 1; i < n; i++)
+    // lesgoooo
+    int n, x;
+    cin >> n >> x;
+    vector<int> vt(n), ans;
+    read(vt, n);
+    sort(vt.begin(), vt.end());
+    int p1 = 0, p2 = n - 1;
+    int loyalty = 0, res = 0, front = 0, demo = 0;
+    while (p1 <= p2)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
+        if ((vt[p2] + demo) / x > loyalty)
         {
-            cout << 0 << nl;
-            return;
+
+            loyalty = floor((vt[p2] + demo) / x);
+            demo += vt[p2];
+            ans.push_back(vt[p2]);
+            res += vt[p2];
+            p2--;
+
+            continue;
+        }
+        else if ((vt[p2] + front + demo) / x > loyalty)
+        {
+            loyalty = floor((vt[p2] + front + demo) / x);
+            demo += front + vt[p2];
+            front = 0;
+            ans.push_back(vt[p2]);
+            res += vt[p2];
+            p2--;
+            continue;
+        }
+        else
+        {
+            ans.push_back(vt[p1]);
+            front += vt[p1];
+            p1++;
         }
     }
-
-    for (int i = 1; i + 1 < n; i++)
-    {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
-        {
-            cout << 1 << nl;
-            return;
-        }
-    }
-
-    cout << -1 << nl;
+    cout << res << nl;
+    print(ans);
 }
 
 signed main()

@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-20 22:19:14
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -41,30 +41,34 @@ void solve()
     int n;
     cin >> n;
     vector<int> a(n);
-    read(a, n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
 
-    for (int i = 1; i < n; i++)
+    for (int i = 1; i < n - 1; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
-        {
-            cout << 0 << nl;
-            return;
-        }
+        if (a[i] == -1)
+            a[i] = 0;
     }
 
-    for (int i = 1; i + 1 < n; i++)
+    if (a[0] == -1 && a[n - 1] == -1)
     {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
-        {
-            cout << 1 << nl;
-            return;
-        }
+        a[0] = a[n - 1] = 0;
+    }
+    else if (a[0] == -1)
+    {
+        a[0] = a[n - 1];
+    }
+    else if (a[n - 1] == -1)
+    {
+        a[n - 1] = a[0];
     }
 
-    cout << -1 << nl;
+    int sum = a[n - 1] - a[0];
+    cout << abs(sum) << nl;
+    for (int i = 0; i < n; i++)
+        cout << a[i] << ' ';
+    cout << nl;
 }
-
 signed main()
 {
     fast_io;

@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-24 19:45:52
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,40 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    read(a, n);
-
-    for (int i = 1; i < n; i++)
+    // lesgoooo
+    int n, m;
+    cin >> n >> m;
+    vector<pair<int, int>> vt;
+    for (int i = 0; i < n; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
+        for (int j = 0; j < m; j++)
         {
-            cout << 0 << nl;
+            int x;
+            cin >> x;
+            vt.push_back({x, i + 1});
+        }
+    }
+    sort(vt.begin(), vt.end());
+    vector<int> visited(n, -1);
+    for (int i = 0; i < n * m; i++)
+    {
+        int pos = i % n;
+        int cow = vt[i].second;
+        if (visited[pos] == -1)
+        {
+            visited[pos] = cow;
+        }
+        else if (visited[pos] != cow)
+        {
+            cout << -1 << nl;
             return;
         }
     }
-
-    for (int i = 1; i + 1 < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
-        {
-            cout << 1 << nl;
-            return;
-        }
+        cout << visited[i] << " ";
     }
-
-    cout << -1 << nl;
+    cout << nl;
 }
 
 signed main()

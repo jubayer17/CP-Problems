@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-10 23:51:11
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,22 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
+    // lesgoooo
     int n;
     cin >> n;
     vector<int> a(n);
-    read(a, n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
 
-    for (int i = 1; i < n; i++)
+    sort(a.begin(), a.end());
+    int cnt = 0;
+    for (int i = 0; i < n; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
-        {
-            cout << 0 << nl;
-            return;
-        }
+        if (i == 0 || a[i] != a[i - 1])
+            cnt++;
     }
 
-    for (int i = 1; i + 1 < n; i++)
-    {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
-        {
-            cout << 1 << nl;
-            return;
-        }
-    }
-
-    cout << -1 << nl;
+    cout << (2 * cnt - 1) << '\n';
 }
 
 signed main()

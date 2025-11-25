@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-16 21:56:19
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -33,36 +33,29 @@ void read(vector<T> &v, int n)
     for (auto &x : v)
         cin >> x;
 }
-template <typename T>
-void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl; }
 
 void solve()
 {
     int n;
     cin >> n;
-    vector<int> a(n);
+
+    vector<int> a;
     read(a, n);
 
-    for (int i = 1; i < n; i++)
+    int mx = 0;
+
+    for (int i = 0; i < n; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
-        {
-            cout << 0 << nl;
-            return;
-        }
+        mx = max(mx, a[i]);
     }
 
-    for (int i = 1; i + 1 < n; i++)
+    int total = max(a[0], a[n - 1]);
+    for (int i = 0; i < n - 1; i++)
     {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
-        {
-            cout << 1 << nl;
-            return;
-        }
+        int x = max(a[i], a[i + 1]);
+        total += x;
     }
-
-    cout << -1 << nl;
+    cout << total - mx << nl;
 }
 
 signed main()

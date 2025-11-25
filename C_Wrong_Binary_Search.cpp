@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-23 21:04:12
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,33 +38,39 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
+    // lesgoooo
     int n;
     cin >> n;
-    vector<int> a(n);
-    read(a, n);
+    string s;
+    cin >> s;
+    vector<int> a(n, -1);
 
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
+
+        a[i] = i + 1;
+    }
+    if ((s[0] == '0' && s[1] == '1') || (s[n - 2] == '1' && s[n - 1] == '0'))
+    {
+        cout << "NO" << nl;
+        return;
+    }
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (s[i] == '0' && s[i] == s[i + 1])
         {
-            cout << 0 << nl;
+
+            swap(a[i], a[i + 1]);
+        }
+        else if (s[i] == '0' && (s[i] != s[i + 1] && s[i] != s[i - 1]))
+        {
+            cout << "NO" << nl;
             return;
         }
     }
-
-    for (int i = 1; i + 1 < n; i++)
-    {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
-        {
-            cout << 1 << nl;
-            return;
-        }
-    }
-
-    cout << -1 << nl;
+    cout << "YES" << nl;
+    print(a);
 }
-
 signed main()
 {
     fast_io;

@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-05-26 15:01:52
+// 2025-11-16 21:05:01
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -39,6 +39,12 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 void solve()
 {
     // lesgoooo
+    long long a, b, n;
+    cin >> a >> b >> n;
+    if (a == b || n <= a / b)
+        cout << 1 << nl;
+    else
+        cout << 2 << nl;
 }
 
 signed main()

@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-10-31 22:48:58
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,20 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    read(a, n);
+    // lesgoooo
+    int n, x, y;
+    cin >> n >> x >> y;
 
-    for (int i = 1; i < n; i++)
-    {
-        if (abs(a[i - 1] - a[i]) <= 1)
-        {
-            cout << 0 << nl;
-            return;
-        }
-    }
+    int lcm_xy = lcm(x, y);
 
-    for (int i = 1; i + 1 < n; i++)
-    {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
-        {
-            cout << 1 << nl;
-            return;
-        }
-    }
+    int both = n / lcm_xy;
+    int xcnt = n / x - both;
+    int ycnt = n / y - both;
 
-    cout << -1 << nl;
+    int sum1 = (xcnt * (2 * n - (xcnt - 1))) / 2;
+    int sum2 = (ycnt * (2 * 1 + (ycnt - 1))) / 2;
+
+    cout << sum1 - sum2 << nl;
 }
 
 signed main()

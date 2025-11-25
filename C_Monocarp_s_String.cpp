@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-05 23:37:43
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,46 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
+    // lesgoooo
+
     int n;
     cin >> n;
-    vector<int> a(n);
-    read(a, n);
-
-    for (int i = 1; i < n; i++)
+    string s;
+    cin >> s;
+    int A = count(s.begin(), s.end(), 'a');
+    int B = n - A;
+    int exA = A - B;
+    if (exA == 0)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
+        cout << 0 << nl;
+        return;
+    }
+    int ans = n;
+    map<int, int> mp;
+    mp[0] = 0;
+    for (int i = 1, curA = 0, curB = 0; i <= n; i++)
+    {
+        if (s[i - 1] == 'a')
         {
-            cout << 0 << nl;
-            return;
+
+            curA++;
         }
+        else
+        {
+            curB++;
+        }
+        int curState = curA - curB;
+        if (mp.count(curState - exA))
+        {
+            int start = mp[curState - exA];
+            ans = min(ans, i - start);
+        }
+        mp[curState] = i;
     }
 
-    for (int i = 1; i + 1 < n; i++)
-    {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
-        {
-            cout << 1 << nl;
-            return;
-        }
-    }
-
-    cout << -1 << nl;
+    if (ans == n)
+        ans = -1;
+    cout << ans << nl;
 }
 
 signed main()

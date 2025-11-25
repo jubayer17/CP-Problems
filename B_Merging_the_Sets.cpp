@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-02 23:39:18
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,47 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    read(a, n);
+    // lesgoooo
 
-    for (int i = 1; i < n; i++)
+    int n, k;
+    cin >> n >> k;
+    map<int, vector<int>> nm_appears;
+    for (int i = 0; i < n; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
+        int l;
+
+        cin >> l;
+        for (int j = 0; j < l; j++)
         {
-            cout << 0 << nl;
-            return;
+            int c;
+            cin >> c;
+            nm_appears[c].push_back(i);
         }
     }
 
-    for (int i = 1; i + 1 < n; i++)
+    bool all = true;
+    int cnt = 0;
+    set<int> unique_sets;
+    for (int i = 1; i <= k; i++)
     {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
+        if (nm_appears[i].size() == 1)
         {
-            cout << 1 << nl;
-            return;
+            unique_sets.insert(nm_appears[i][0]);
+        }
+        if (nm_appears[i].empty())
+        {
+            all = false;
         }
     }
 
-    cout << -1 << nl;
+    if (n - unique_sets.size() >= 2 && all)
+    {
+        cout << "yes" << nl;
+    }
+    else
+    {
+        cout << "no" << nl;
+    }
 }
 
 signed main()

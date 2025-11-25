@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-17 21:24:57
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,44 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    read(a, n);
-
-    for (int i = 1; i < n; i++)
+    // lesgoooo
+    int n, k;
+    cin >> n >> k;
+    vector<vector<int>> vt(n, vector<int>(n));
+    for (int i = 0; i < n; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
+        for (int j = 0; j < n; j++)
         {
-            cout << 0 << nl;
-            return;
+            cin >> vt[i][j];
         }
     }
-
-    for (int i = 1; i + 1 < n; i++)
+    int cnt = 0;
+    for (int i = 0; i < n; i++)
     {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
+        for (int j = 0; j < n; j++)
         {
-            cout << 1 << nl;
-            return;
+            int ii = n - 1 - i;
+            int jj = n - 1 - j;
+            if (vt[i][j] != vt[ii][jj])
+            {
+                cnt++;
+            }
         }
     }
+    cnt /= 2;
 
-    cout << -1 << nl;
+    if (cnt > k)
+    {
+        cout << "NO" << nl;
+        return;
+    }
+
+    int rem = k - cnt;
+
+    if (rem % 2 == 0 || n % 2 == 1)
+        cout << "YES" << nl;
+    else
+        cout << "NO" << nl;
 }
 
 signed main()

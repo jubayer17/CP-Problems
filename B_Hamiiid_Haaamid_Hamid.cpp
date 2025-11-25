@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-08 01:28:31
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,44 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> a(n);
-    read(a, n);
+    // lesgoooo
 
-    for (int i = 1; i < n; i++)
+    int n, pos;
+    cin >> n >> pos;
+    string s;
+    cin >> s;
+
+    if (pos == 1 || pos == n)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
-        {
-            cout << 0 << nl;
-            return;
-        }
+        cout << 1 << nl;
+        return;
     }
 
-    for (int i = 1; i + 1 < n; i++)
-    {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
+    pos--;
+
+    int lf = -1, rg = n;
+    for (int i = pos - 1; i >= 0; i--)
+        if (s[i] == '#')
         {
-            cout << 1 << nl;
-            return;
+            lf = i;
+            break;
         }
+    for (int i = pos + 1; i < n; i++)
+        if (s[i] == '#')
+        {
+            rg = i;
+            break;
+        }
+
+    if (lf == -1 && rg == n)
+    {
+        cout << 1 << nl;
+        return;
     }
 
-    cout << -1 << nl;
+    int leftCand = min(pos + 1, n - rg + 1);
+    int rightCand = min(lf + 2, n - pos);
+    cout << max(leftCand, rightCand) << nl;
 }
 
 signed main()

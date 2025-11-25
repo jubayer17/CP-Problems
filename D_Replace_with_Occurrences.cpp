@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-13 22:50:43
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,31 +38,44 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
+    // lesgoooo
     int n;
     cin >> n;
-    vector<int> a(n);
-    read(a, n);
-
-    for (int i = 1; i < n; i++)
+    map<int, vector<int>> grps;
+    for (int i = 0; i < n; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
+        int x;
+        cin >> x;
+        grps[x].push_back(i);
+    }
+    // for (auto &c : grps[2])
+    // {
+    //     cout << c << " ";
+    // }
+    // cout << nl;
+
+    for (auto &[val, idxs] : grps)
+    {
+        if (idxs.size() % val != 0)
         {
-            cout << 0 << nl;
+            cout << -1 << nl;
             return;
         }
     }
-
-    for (int i = 1; i + 1 < n; i++)
+    int cnt = 1;
+    vector<int> ans(n);
+    for (auto &[val, idxs] : grps)
     {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
+        for (int i = 0; i < idxs.size(); i++)
         {
-            cout << 1 << nl;
-            return;
+            ans[idxs[i]] = cnt;
+            if ((i + 1) % val == 0)
+            {
+                cnt++;
+            }
         }
     }
-
-    cout << -1 << nl;
+    print(ans);
 }
 
 signed main()

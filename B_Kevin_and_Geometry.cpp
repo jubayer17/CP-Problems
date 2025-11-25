@@ -1,5 +1,5 @@
 // Author: Jubayer Ahmed
-// 2025-11-19 21:15:13
+// 2025-11-24 12:34:47
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -38,30 +38,56 @@ void print_pair(const pair<T, T> &p) { cout << p.first << ' ' << p.second << nl;
 
 void solve()
 {
+    // lesgoooo
     int n;
     cin >> n;
     vector<int> a(n);
-    read(a, n);
-
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        if (abs(a[i - 1] - a[i]) <= 1)
+        cin >> a[i];
+    }
+    map<int, int> mp;
+    for (int i = 0; i < n; i++)
+    {
+        mp[a[i]]++;
+    }
+    vector<int> pairs;
+
+    for (auto &c : mp)
+    {
+        if (c.second >= 2)
         {
-            cout << 0 << nl;
-            return;
+            pairs.push_back(c.first);
         }
     }
 
-    for (int i = 1; i + 1 < n; i++)
+    if (pairs.size() == 0)
     {
-        if ((a[i - 1] < a[i] && a[i] > a[i + 1]) ||
-            (a[i - 1] > a[i] && a[i] < a[i + 1]))
+        cout << -1 << nl;
+        return;
+    }
+    int L = pairs[0];
+    vector<int> bases;
+    int used = 2;
+    for (auto &c : a)
+    {
+        if (c == L && used > 0)
         {
-            cout << 1 << nl;
+            used--;
+            continue;
+        }
+        bases.push_back(c);
+    }
+    sort(bases.begin(), bases.end());
+    for (int i = 0; i + 1 < bases.size(); i++)
+    {
+        int b1 = bases[i], b2 = bases[i + 1];
+        if (abs(b1 - b2) < 2 * L)
+        {
+            cout << L << " " << L << " " << b1 << " " << b2 << nl;
             return;
         }
     }
-
     cout << -1 << nl;
 }
 
